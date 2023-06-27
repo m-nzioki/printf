@@ -1,19 +1,16 @@
 #include "main.h"
-#include <stdarg.h>
-
+#include <string.h>
 /**
- * _printf - produces output according to a format.
- * @format - the format
+ * _printf - matches output according to a format.
+ * @format: the format
  * Return: the number of characters printed excluding the null character
  */
-
 int _printf(const char *format, ...)
 {
-	int len;
 	va_list args;
+	int len = 0;
 
 	va_start(args, format);
-	len = 0;
 
 	while (*format)
 	{
@@ -23,27 +20,23 @@ int _printf(const char *format, ...)
 			switch (*format)
 			{
 				case 'c':
-					_putchar(va_arg(args, int));
-					len++;
+					len += print_char(va_arg(args, int));
 					break;
 				case 's':
-					 len +=put_str(va_arg(args, char *));
-					 break;
+					len += print_str(va_arg(args, char *));
+					break;
 				case '%':
-					 _putchar('%');
-					 len++;
-					 break;
+					len += print_37(va_arg(args, int));
+					break;
 				case 'd':
 				case 'i':
-					len += put_int(va_arg(args, int));
+					len += print_int(va_arg(args, int));
 					break;
-				/*Prints an unrecognized conversion specifer
-				 * as a literal string */
 				default:
-					 _putchar('%');
-					 _putchar(*format);
-					 len += 2;
-					 break;
+					_putchar('%');
+					_putchar(*format);
+					len += 2;
+					break;
 			}
 		}
 		else
@@ -53,6 +46,5 @@ int _printf(const char *format, ...)
 		}
 		format++;
 	}
-	va_end(args);
-	return len;
+	return (len);
 }
