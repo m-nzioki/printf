@@ -27,8 +27,7 @@ int _printf(const char *format, ...)
 					len++;
 					break;
 				case 's':
-					 put_str(va_arg(args, char *));
-					 len += len;
+					 len +=put_str(va_arg(args, char *));
 					 break;
 				case '%':
 					 _putchar('%');
@@ -36,9 +35,8 @@ int _printf(const char *format, ...)
 					 break;
 				case 'd':
 				case 'i':
-					 put_int(va_arg(args, int));
-					 len++;
-					 break;
+					len += put_int(va_arg(args, int));
+					break;
 				/*Prints an unrecognized conversion specifer
 				 * as a literal string */
 				default:
